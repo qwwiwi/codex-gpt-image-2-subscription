@@ -103,6 +103,20 @@ Hard-won gotchas (already handled by the script):
 - `tool_choice={"type": "image_generation"}` makes the model draw immediately
 - there is no seed parameter: for strict reproducibility you still need a paid API with seed support; for character/style/logo transfer references are enough
 
+## Bonus: logo-company skill — official brand SVG logos
+
+A second skill ships in this repo: official SVG logo lookup for any brand (Claude, OpenAI, Codex, Telegram, GitHub — powered by [glincker/thesvg](https://github.com/glincker/thesvg), 5,886 brands, MIT).
+
+```bash
+cp -r codex-gpt-image-2-subscription/skills/logo-company ~/.claude/skills/
+
+~/.claude/skills/logo-company/scripts/find-logo.sh codex mono
+# → SVG path: composite onto banners, recolor to your palette,
+#   or feed as a reference into codex-image
+```
+
+The two skills combine: `find-logo.sh` fetches the exact brand mark → you composite it over the generated artwork (or pass it as a reference) — the trademark stays exact instead of "roughly similar by a neural net".
+
 ## Repository structure
 
 ```
@@ -114,11 +128,18 @@ codex-gpt-image-2-subscription/
 │   ├── reference.png
 │   ├── result-dj.png
 │   └── result-fishing.png
-└── skills/codex-image/            # the skill — copy into ~/.claude/skills/
-    ├── SKILL.md                   # agent instructions (triggers, constraints)
-    └── scripts/
-        ├── run.sh                 # launcher: bootstraps venv and runs
-        └── codex_image.py         # generator (Responses API + image_generation)
+└── skills/
+    ├── codex-image/               # image generation — copy into ~/.claude/skills/
+    │   ├── SKILL.md               # agent instructions (triggers, constraints)
+    │   └── scripts/
+    │       ├── run.sh             # launcher: bootstraps venv and runs
+    │       └── codex_image.py     # generator (Responses API + image_generation)
+    └── logo-company/              # official brand SVG lookup (thesvg, 5,886 brands)
+        ├── SKILL.md
+        ├── references/brands-catalog.md
+        └── scripts/
+            ├── find-logo.sh       # fuzzy logo search with a local cache
+            └── update-cache.sh
 ```
 
 ## Troubleshooting

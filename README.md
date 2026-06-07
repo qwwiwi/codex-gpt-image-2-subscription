@@ -103,6 +103,20 @@ SSE-поток ──► PNG на диск
 - `tool_choice={"type": "image_generation"}` заставляет модель рисовать сразу
 - seed-параметра нет: для строгой воспроизводимости нужен платный API с seed; для переноса персонажа/стиля/лого хватает референсов
 
+## Бонус: skill logo-company — официальные SVG-логотипы брендов
+
+В комплекте второй скилл: поиск официального SVG-логотипа любого бренда (Claude, OpenAI, Codex, Telegram, GitHub — база [glincker/thesvg](https://github.com/glincker/thesvg), 5 886 брендов, MIT).
+
+```bash
+cp -r codex-gpt-image-2-subscription/skills/logo-company ~/.claude/skills/
+
+~/.claude/skills/logo-company/scripts/find-logo.sh codex mono
+# → путь к SVG: впаивай в баннер, перекрашивай под палитру или отдавай
+#   референсом в codex-image
+```
+
+Связка двух скиллов: `find-logo.sh` достаёт фирменный знак → рендеришь его поверх сгенерированной картинки (или передаёшь референсом) — товарный знак остаётся точным, а не «примерно похожим от нейросети».
+
 ## Структура репозитория
 
 ```
@@ -114,11 +128,18 @@ codex-gpt-image-2-subscription/
 │   ├── reference.png
 │   ├── result-dj.png
 │   └── result-fishing.png
-└── skills/codex-image/            # сам скилл — копируется в ~/.claude/skills/
-    ├── SKILL.md                   # инструкция для агента (триггеры, ограничения)
-    └── scripts/
-        ├── run.sh                 # лаунчер: сам поднимает venv и запускает
-        └── codex_image.py         # генератор (Responses API + image_generation)
+└── skills/
+    ├── codex-image/               # генерация картинок — в ~/.claude/skills/
+    │   ├── SKILL.md               # инструкция для агента (триггеры, ограничения)
+    │   └── scripts/
+    │       ├── run.sh             # лаунчер: сам поднимает venv и запускает
+    │       └── codex_image.py     # генератор (Responses API + image_generation)
+    └── logo-company/              # поиск официальных brand-SVG (thesvg, 5886 брендов)
+        ├── SKILL.md
+        ├── references/brands-catalog.md
+        └── scripts/
+            ├── find-logo.sh       # fuzzy-поиск логотипа, локальный кэш
+            └── update-cache.sh
 ```
 
 ## Troubleshooting
