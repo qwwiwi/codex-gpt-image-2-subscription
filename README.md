@@ -12,7 +12,7 @@
 
 ## Это НЕ API
 
-Здесь нет `OPENAI_API_KEY` и нет оплаты за каждую картинку. Всё работает **в рамках подписки ChatGPT (Plus/Pro)** — той самой, под которой залогинен Codex CLI. Скрипт берёт OAuth-токен из `~/.codex/auth.json` и ходит в бэкенд Codex (`chatgpt.com/backend-api/codex`) через Responses API: host-модель gpt-6-astra вызывает инструмент `image_generation`, рисует gpt-image-2. Квота общая с подпиской.
+Здесь нет `OPENAI_API_KEY` и нет оплаты за каждую картинку. Всё работает **в рамках подписки ChatGPT (Plus/Pro)** — той самой, под которой залогинен Codex CLI. Скрипт берёт OAuth-токен из `~/.codex/auth.json` и ходит в бэкенд Codex (`chatgpt.com/backend-api/codex`) через Responses API: последняя фронтир-модель GPT (по умолчанию gpt-6-astra) вызывает инструмент `image_generation`, рисует gpt-image-2. Квота общая с подпиской.
 
 ## Демо: генерация по референсу
 
@@ -89,7 +89,7 @@ prompt + референсы (input_image, data URL)
 Responses API  ──  chatgpt.com/backend-api/codex  (OAuth из ~/.codex/auth.json)
         │
         ▼
-host-модель gpt-6-astra ── tool_choice: image_generation ──► gpt-image-2
+фронтир-модель GPT ── tool_choice: image_generation ──► gpt-image-2
         │
         ▼
 SSE-поток ──► PNG на диск
