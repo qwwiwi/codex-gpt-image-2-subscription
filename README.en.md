@@ -12,7 +12,7 @@ A ready-made Claude Code skill: the agent generates images (including **referenc
 
 ## This is NOT the API
 
-No `OPENAI_API_KEY`, no per-image charges. Everything runs **within your ChatGPT subscription (Plus/Pro)** — the one Codex CLI is logged into. The script reads the OAuth token from `~/.codex/auth.json` and calls the Codex backend (`chatgpt.com/backend-api/codex`) over the Responses API: the latest frontier GPT model (default gpt-6-astra) invokes the `image_generation` tool, gpt-image-2 renders. Quota is shared with the subscription.
+No `OPENAI_API_KEY`, no per-image charges. Everything runs **within your ChatGPT subscription (Plus/Pro)** — the one Codex CLI is logged into. The script reads the OAuth token from `~/.codex/auth.json` and calls the Codex backend (`chatgpt.com/backend-api/codex`) over the Responses API: the latest frontier GPT model (default gpt-6.1-sol) invokes the `image_generation` tool, gpt-image-2 renders. Quota is shared with the subscription.
 
 ## Demo: reference-based generation
 
