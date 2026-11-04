@@ -41,7 +41,7 @@ codex_image.py — генерация картинок через подписк
   • Параметр `input` — это СПИСОК message-объектов, не голая строка.
   • stream=True ОБЯЗАТЕЛЕН (иначе HTTP 400) — поэтому читаем SSE через openai SDK.
   • store=False ОБЯЗАТЕЛЕН (иначе HTTP 400 от бэкенда Codex).
-  • host-модель — последняя фронтир-модель GPT (по умолчанию gpt-6-astra, env CODEX_IMAGE_HOST_MODEL): она вызывает инструмент image_generation.
+  • host-модель — последняя фронтир-модель GPT (по умолчанию gpt-6.1-sol, env CODEX_IMAGE_HOST_MODEL): она вызывает инструмент image_generation.
   • Референсы РАБОТАЮТ: до 5 картинок content-блоками
     {"type":"input_image","image_url":"data:<mime>;base64,...","detail":"auto"}
     рядом с input_text (подтверждено 2026-06-07, техника из ningzimu/codex-gpt-image).
@@ -65,7 +65,7 @@ from typing import Optional
 from openai import OpenAI
 
 CODEX_BASE_URL = "https://chatgpt.com/backend-api/codex"
-HOST_MODEL = os.environ.get("CODEX_IMAGE_HOST_MODEL", "gpt-6-astra")  # latest frontier GPT model that calls the image tool
+HOST_MODEL = os.environ.get("CODEX_IMAGE_HOST_MODEL", "gpt-6.1-sol")  # latest frontier GPT model that calls the image tool
 IMAGE_MODEL = "gpt-image-2"
 INSTRUCTIONS = (
     "You are an assistant that must fulfill image generation "

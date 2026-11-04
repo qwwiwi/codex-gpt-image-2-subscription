@@ -12,7 +12,7 @@
 
 ## Это НЕ API
 
-Здесь нет `OPENAI_API_KEY` и нет оплаты за каждую картинку. Всё работает **в рамках подписки ChatGPT (Plus/Pro)** — той самой, под которой залогинен Codex CLI. Скрипт берёт OAuth-токен из `~/.codex/auth.json` и ходит в бэкенд Codex (`chatgpt.com/backend-api/codex`) через Responses API: последняя фронтир-модель GPT (по умолчанию gpt-6-astra) вызывает инструмент `image_generation`, рисует gpt-image-2. Квота общая с подпиской.
+Здесь нет `OPENAI_API_KEY` и нет оплаты за каждую картинку. Всё работает **в рамках подписки ChatGPT (Plus/Pro)** — той самой, под которой залогинен Codex CLI. Скрипт берёт OAuth-токен из `~/.codex/auth.json` и ходит в бэкенд Codex (`chatgpt.com/backend-api/codex`) через Responses API: последняя фронтир-модель GPT (по умолчанию gpt-6.1-sol) вызывает инструмент `image_generation`, рисует gpt-image-2. Квота общая с подпиской.
 
 ## Демо: генерация по референсу
 
