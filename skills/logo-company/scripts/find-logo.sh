@@ -10,7 +10,8 @@
 set -uo pipefail
 
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CACHE_DIR="$SKILL_DIR/_cache/brand-icons"
+# Cache dir: $LOGO_COMPANY_CACHE or <skill>/_cache/brand-icons
+CACHE_DIR="${LOGO_COMPANY_CACHE:-$SKILL_DIR/_cache/brand-icons}"
 REMOTE_BASE="https://raw.githubusercontent.com/glincker/thesvg/main/public/icons"
 REPO_TREE_API="https://api.github.com/repos/glincker/thesvg/git/trees/main?recursive=1"
 BRAND_LIST_CACHE="$CACHE_DIR/.brand-list.txt"

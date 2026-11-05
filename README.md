@@ -80,6 +80,22 @@ run.sh "same character riding a snowboard, same flat style" medium landscape ./a
 run.sh "same character as a chef" ./avatar.png
 ```
 
+## Сначала ТЗ: бриф перед генерацией
+
+Перед генерацией агент собирает ТЗ (бриф), а не рисует по одной фразе. Инструмент `scripts/brief.py` работает офлайн: без сети и без ключей.
+
+```bash
+cd ~/.claude/skills/codex-image
+cp references/brands.example.json references/brands.json   # свой реестр пресетов (в git не попадает)
+
+python3 scripts/brief.py questions --type youtube-cover      # вопросы заказчику
+python3 scripts/brief.py init brief.json --type youtube-cover # пустой бриф
+python3 scripts/brief.py check brief.json                     # проверка: exit 0 = можно генерировать
+python3 scripts/brief.py prompt brief.json                    # промпт + готовая команда run.sh
+```
+
+Типы: `youtube-cover`, `banner`, `post-illustration`, `infographic`, `sticker`, `logo`, `other`. Пример – `examples/youtube-cover.brief.json`. Формат реестра – `references/README.md`. Тесты: `python3 -m unittest scripts/test_brief.py`.
+
 ## Как это устроено
 
 ```
@@ -131,12 +147,17 @@ codex-gpt-image-2-subscription/
 └── skills/
     ├── codex-image/               # генерация картинок — в ~/.claude/skills/
     │   ├── SKILL.md               # инструкция для агента (триггеры, ограничения)
+    │   ├── examples/              # пример брифа и готового промпта (youtube-cover)
+    │   ├── references/            # brands.example.json + README формата реестра
     │   └── scripts/
     │       ├── run.sh             # лаунчер: сам поднимает venv и запускает
-    │       └── codex_image.py     # генератор (Responses API + image_generation)
+    │       ├── codex_image.py     # генератор (Responses API + image_generation)
+    │       ├── brief.py           # бриф (ТЗ): questions / init / check / prompt / presets
+    │       └── test_brief.py      # тесты brief.py
     └── logo-company/              # поиск официальных brand-SVG (thesvg, 5886 брендов)
         ├── SKILL.md
         ├── references/brands-catalog.md
+        ├── references/integration-patterns.md
         └── scripts/
             ├── find-logo.sh       # fuzzy-поиск логотипа, локальный кэш
             └── update-cache.sh

@@ -80,6 +80,22 @@ run.sh "same character riding a snowboard, same flat style" medium landscape ./a
 run.sh "same character as a chef" ./avatar.png
 ```
 
+## Brief first
+
+Before generating, the agent collects a brief instead of drawing from a single phrase. `scripts/brief.py` is offline: no network, never reads a key.
+
+```bash
+cd ~/.claude/skills/codex-image
+cp references/brands.example.json references/brands.json   # your own preset registry (git-ignored)
+
+python3 scripts/brief.py questions --type youtube-cover      # questions for the requester
+python3 scripts/brief.py init brief.json --type youtube-cover # empty brief template
+python3 scripts/brief.py check brief.json                     # validate: exit 0 = ready to generate
+python3 scripts/brief.py prompt brief.json                    # prompt + the exact run.sh command
+```
+
+Types: `youtube-cover`, `banner`, `post-illustration`, `infographic`, `sticker`, `logo`, `other`. Example: `examples/youtube-cover.brief.json`. Registry format: `references/README.md`. Tests: `python3 -m unittest scripts/test_brief.py`.
+
 ## How it works
 
 ```
@@ -131,12 +147,17 @@ codex-gpt-image-2-subscription/
 └── skills/
     ├── codex-image/               # image generation — copy into ~/.claude/skills/
     │   ├── SKILL.md               # agent instructions (triggers, constraints)
+    │   ├── examples/              # sample brief and generated prompt (youtube-cover)
+    │   ├── references/            # brands.example.json + registry format README
     │   └── scripts/
     │       ├── run.sh             # launcher: bootstraps venv and runs
-    │       └── codex_image.py     # generator (Responses API + image_generation)
+    │       ├── codex_image.py     # generator (Responses API + image_generation)
+    │       ├── brief.py           # brief tool: questions / init / check / prompt / presets
+    │       └── test_brief.py      # brief.py tests
     └── logo-company/              # official brand SVG lookup (thesvg, 5,886 brands)
         ├── SKILL.md
         ├── references/brands-catalog.md
+        ├── references/integration-patterns.md
         └── scripts/
             ├── find-logo.sh       # fuzzy logo search with a local cache
             └── update-cache.sh
