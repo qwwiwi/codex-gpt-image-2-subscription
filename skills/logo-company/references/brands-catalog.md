@@ -1,6 +1,6 @@
 # Brands Catalog – часто используемые slugs
 
-Список brand slugs в glincker/thesvg, релевантные для AI-контента. Используется find-logo.sh для разрешения имён в slug.
+Список brand slugs в glincker/thesvg, релевантные для контента про AI и разработку. Используется find-logo.sh для разрешения имён в slug.
 
 ## AI / LLM
 
@@ -47,7 +47,7 @@
 | Kling | `kling` | default |
 | Sora | `sora-openai` | default |
 
-**Higgsfield** – ОТСУТСТВУЕТ в репо. Нужен наш собственный SVG: положить в `_assets/brand-icons/higgsfield-mono.svg`.
+**Higgsfield** – ОТСУТСТВУЕТ в репо. Нужен собственный SVG: положить в кэш как `higgsfield-mono.svg`.
 
 ## Соцсети / платформы
 
@@ -101,4 +101,4 @@
 
 ## Полный список
 
-`<skill>/_cache/brand-icons/.brand-list.txt` – локально кэшированный полный список из 5886 slugs. Обновляется автоматически каждые 24h через find-logo.sh при необходимости.
+`<skill>/_cache/brand-icons/.brand-list.txt` (или `$LOGO_COMPANY_CACHE/.brand-list.txt`) – локально кэшированный полный список из 5886 slugs. Обновляется автоматически каждые 24h через find-logo.sh при необходимости.
